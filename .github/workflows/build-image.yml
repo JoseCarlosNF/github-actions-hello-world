@@ -28,6 +28,7 @@ jobs:
   build-push:
     name: Build e Push da Imagem
     runs-on: ubuntu-latest
+    needs: lint
 
     steps:
       - name: Clona o repositório
