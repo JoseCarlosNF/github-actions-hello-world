@@ -1,12 +1,30 @@
 ---
-name: Action de hello world
+name: Build e upload da imagem para o docker hub
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
+  pull_request:
+    branches:
+      - main
+  release:
+    types:
+      - created
 
 jobs:
+  lint:
+    name: Lint do Dockerfile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clona o repositório
+        uses: actions/checkout@v2
+
+      - uses: actions/hadolint-action@v1.5.0
+        with:
+          dockerfile: Dockerfile
+
   build-image:
     runs-on: ubuntu-latest
 
